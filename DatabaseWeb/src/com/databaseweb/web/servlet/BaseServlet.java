@@ -1,8 +1,8 @@
 package com.databaseweb.web.servlet;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.SQLSyntaxErrorException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * ��{�@��servlet�B�̦h�ӽШD
+ * 依請求的方法名調用同名方法
  * @author wayne
  *
  */
@@ -39,12 +39,13 @@ public abstract class BaseServlet extends HttpServlet {
 		} 
 		
 		/*
-		 * �եΤ�k
+		 * 調用同名方法
 		 */
 		try {
-			method.invoke(this, request, response);  //this.��k�W(request, response);
+			method.invoke(this, request, response);  
+			
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("出現問題了!! 我們會盡快排除");
 		}
 	}
 	

@@ -72,14 +72,23 @@ public class DBlistServlet extends BaseServlet {
 		str = new String(bytes, "utf-8");
 
 		req.getSession().removeAttribute("error");
-
+		//如果輸入為空
 		if (str == null || str.trim().isEmpty()) {
-			req.getSession().setAttribute("error", "無效SQL語句");
+			req.getSession().removeAttribute("queryList");
+			req.getSession().setAttribute("error", "請輸入SQL語句");
 			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
 		}
+		
 		String sql = str.trim().toLowerCase();
+		
+		//判斷最後非分號
+		if (!";".equals(String.valueOf(sql.charAt(sql.length() - 1)))) {
+			req.getSession().setAttribute("error", "無效SQL語句缺失 ; ");
+			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
+		}
+		
+		//去末尾分號
 		sql = sql.substring(0, sql.length() - 1);
-
 		String[] split = sql.split(" ");
 
 		/*
@@ -105,7 +114,7 @@ public class DBlistServlet extends BaseServlet {
 		}
 	}
 
-	private void query(HttpServletRequest req, HttpServletResponse resp, String sql, boolean isSelect) {
+	private void query(HttpServletRequest req, HttpServletResponse resp, String sql, boolean isSelect) throws ServletException, IOException {
 		String dbName = (String) req.getSession().getAttribute("databaseName");
 
 		try {
@@ -113,22 +122,20 @@ public class DBlistServlet extends BaseServlet {
 			req.getSession().setAttribute("queryList", queryList);
 			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			req.getSession().setAttribute("error", e.getMessage());
+			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
 		}
 	}
 
-	private void useDatabase(HttpServletRequest req, HttpServletResponse resp, String database) {
+	private void useDatabase(HttpServletRequest req, HttpServletResponse resp, String database) throws ServletException, IOException {
 		try {
 			String dbName = dblistService.useDatabase(database);
 			req.getSession().setAttribute("databaseName", dbName);
 			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
 		} catch (Exception e) {
 			req.getSession().setAttribute("error", e.getMessage());
-			try {
-				req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
-			} catch (ServletException | IOException e1) {
-				throw new RuntimeException(e1);
-			}
+			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
+			
 		}
 	}
 }
