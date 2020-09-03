@@ -52,7 +52,7 @@ public class DBlistService {
 		if (isSelect) {
 			return dao.query(dbName, sql); // select語句,返回查詢結果
 		} else {
-			return dao.upDate(dbName, sql); // false非select語句,返回的是處裡幾條數據
+			return dao.upDate(dbName, sql); // false非select語句,返回的是影響幾條數據
 		}
 	}
 
