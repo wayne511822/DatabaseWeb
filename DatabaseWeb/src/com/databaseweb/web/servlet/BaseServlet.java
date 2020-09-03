@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 依請求的方法名調用同名方法
+ * 依請求的方法名調用同名方法, 減少Servlet類的創建
  * @author wayne
  *
  */

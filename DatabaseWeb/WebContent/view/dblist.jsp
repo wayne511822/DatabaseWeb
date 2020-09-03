@@ -5,7 +5,7 @@
 <head>
 	<base target="leftBottom">
 	<meta charset="UTF-8">
-	
+	<title>dblist</title>
 	<style type="text/css">
 		* {
 			margin: 0px;
@@ -46,7 +46,6 @@
 	<c:forEach items="${dbNameList}" var="dbName">
 		<a href="<c:url value='/DBlistServlet?method=getTableNameList&name=${dbName.dataName}'/>">${dbName.dataName}</a><br/>
 	</c:forEach>
-	
 	
 </body>
 </html>

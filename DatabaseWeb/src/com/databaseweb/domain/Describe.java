@@ -1,5 +1,9 @@
 package com.databaseweb.domain;
-
+/**
+ * 儲存資料表結構的javabean
+ * @author wayne
+ *
+ */
 public class Describe {
 
 	private String field;

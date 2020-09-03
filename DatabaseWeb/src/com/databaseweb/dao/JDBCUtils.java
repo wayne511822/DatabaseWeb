@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * v1.0
+ * JDBC資料庫連線工具類
  * @author wayne
  *
  */

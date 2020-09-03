@@ -9,7 +9,11 @@ import java.sql.Statement;
 import org.junit.Test;
 
 import com.databaseweb.dao.JDBCUtils;
-
+/**
+ * unit test類用於測試JDBCUtilsTest資料庫連線功能
+ * @author wayne
+ *
+ */
 public class JDBCUtilsTest {
 
 	@Test

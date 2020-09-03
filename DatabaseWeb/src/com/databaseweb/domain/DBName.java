@@ -1,8 +1,7 @@
 package com.databaseweb.domain;
 
-import java.util.List;
 /**
- * 用來存儲名稱
+ * 儲存資料庫名稱的javabean
  * @author wayne
  *
  */

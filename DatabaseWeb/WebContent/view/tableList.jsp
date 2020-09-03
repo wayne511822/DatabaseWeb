@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>tableList</title>
 	<base target="topLeft"/>
 
 	<style type="text/css">
@@ -51,7 +51,6 @@
 	
 	<div>Table List</div>
 	<h3>${sessionScope.databaseName}</h3>
-	
 	
 	<c:forEach items="${tableList}" var="tableList">
 		<a href="<c:url value='/DBlistServlet?method=showTableData&tableName=${tableList.dataName}'/>">

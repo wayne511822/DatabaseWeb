@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Insert title here</title>
+<title>Database Web</title>
 </head>
 <frameset cols="20%,80%">
 	<frameset rows="50%,50%">

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>console</title>
 	<style type="text/css">
 		* {
 			margin: 0px;
@@ -41,7 +41,7 @@
 	</style>
 </head>
 <body>
-	<div>正在操作:[${sessionScope.databaseName}]</div>
+	<div>正在操作資料庫:[${sessionScope.databaseName}]</div>
 	<p>${sessionScope.error}</p>
 	
 	<table>

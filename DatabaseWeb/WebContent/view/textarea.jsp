@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <base target="console" />
-
+<title>textarea</title>
 	<style type="text/css">
 		* {
 			margin: 0px;

@@ -1,16 +1,18 @@
 package com.databaseweb.test;
 
-import java.sql.Connection;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.databaseweb.dao.DBlistDao;
-import com.databaseweb.dao.PageBean;
 import com.databaseweb.domain.DBName;
 import com.databaseweb.domain.Describe;
-import com.databaseweb.domain.User;
 
+/**
+ * unit test類用於測試DBlistDao中的方法
+ * @author wayne
+ *
+ */
 public class DBlistDaoTest {
 	DBlistDao dao = new DBlistDao();
 	

@@ -1,8 +1,6 @@
 package com.databaseweb.dao;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -20,6 +18,10 @@ import com.databaseweb.domain.Describe;
  */
 public class DBlistDao {
 	
+	/**
+	 * 查詢所有的資料庫
+	 * @return 資料庫名稱list
+	 */
 	public List<DBName> getDBNameList() {
 		Connection con = null;
 		Statement stmt = null;
@@ -50,8 +52,10 @@ public class DBlistDao {
 		return list;
 	}
 	
-	/*
-	 * 傳入資料庫名稱,返回table list
+	/**
+	 * 依傳入資料庫名稱,返回所含的資料表
+	 * @param database name
+	 * @return 資料表名稱list
 	 */
 	public List<DBName> getTableNameList(String database) {
 		Connection con = null;
@@ -84,7 +88,12 @@ public class DBlistDao {
 		
 		return list;
 	}
-	
+	/**
+	 * 依傳入的資料表名稱取得其表結構
+	 * @param database
+	 * @param table
+	 * @return
+	 */
 	public List<Describe> getDescribeList(String database, String table) {
 		
 		Connection con = null;
@@ -122,6 +131,12 @@ public class DBlistDao {
 		return list;
 	}
 
+	/**
+	 * 查詢資料表所有內容
+	 * @param database
+	 * @param table
+	 * @return
+	 */
 	public List<List> showTableData(String database, String table) {
 		Connection con = null;
 		Statement stmt = null;
@@ -165,7 +180,12 @@ public class DBlistDao {
 		return list;
 	}
 	
-	
+	/**
+	 * 執行使用者所輸入的SQL查詢語句
+	 * @param dbName
+	 * @param sql
+	 * @return
+	 */
 	public List<List> query(String dbName, String sql) {
 		Connection con = null;
 		Statement stmt = null;
@@ -209,7 +229,12 @@ public class DBlistDao {
 		return list;
 	}
 	
-
+	/**
+	 * 執行使用者所輸入的SQL增刪改語句
+	 * @param dbName
+	 * @param sql
+	 * @return
+	 */
 	public List<List> upDate(String dbName, String sql) {
 		Connection con = null;
 		Statement stmt = null;
@@ -240,8 +265,11 @@ public class DBlistDao {
 	}
 
 	
-	/*
-	 * 返回資料庫名稱
+	/**
+	 * 執行使用者所輸入的USE Database_name語句
+	 * @param database
+	 * @return
+	 * @throws Exception
 	 */
 	public String useDatabase(String database) throws Exception {
 		Connection con = null;
@@ -267,7 +295,9 @@ public class DBlistDao {
 		return string;
 	}
 	
-	
+	/*
+	 * 關閉資源
+	 */
 	private void closeAll(Connection con, Statement stmt, ResultSet rs) throws SQLException{
 		if (rs != null) rs.close();
 		if (stmt != null) stmt.close();

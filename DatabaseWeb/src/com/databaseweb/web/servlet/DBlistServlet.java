@@ -1,23 +1,25 @@
 package com.databaseweb.web.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.databaseweb.dao.PageBean;
 import com.databaseweb.domain.DBName;
 import com.databaseweb.service.DBlistService;
 
+/**
+ * 接收請求回應結果
+ * @author wayne
+ *
+ */
 public class DBlistServlet extends BaseServlet {
 
 	private DBlistService dblistService = new DBlistService();
 
-	/*
+	/**
 	 * 轉發給頁面資料庫list
 	 */
 	public void getDBNameList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +33,7 @@ public class DBlistServlet extends BaseServlet {
 		req.getRequestDispatcher("/view/dblist.jsp").forward(req, resp);
 	}
 
-	/*
+	/**
 	 * 轉發給頁面資料表list
 	 */
 	public void getTableNameList(HttpServletRequest req, HttpServletResponse resp)
@@ -49,7 +51,7 @@ public class DBlistServlet extends BaseServlet {
 
 	}
 
-	/*
+	/**
 	 * 轉發給頁面資料表全部內容
 	 */
 	public void showTableData(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -62,7 +64,7 @@ public class DBlistServlet extends BaseServlet {
 		req.getRequestDispatcher("/view/tabledata.jsp").forward(req, resp);
 	}
 
-	/*
+	/**
 	 * 取得用戶發送的SQL語句,傳送給serivce 轉發執行結果致頁面
 	 */
 	public void sqlCommands(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -71,7 +73,11 @@ public class DBlistServlet extends BaseServlet {
 		byte[] bytes = str.getBytes("iso-8859-1");
 		str = new String(bytes, "utf-8");
 
+		//清空error內容
 		req.getSession().removeAttribute("error");
+		//清空queryList內容
+		req.getSession().removeAttribute("queryList");
+				
 		//如果輸入為空
 		if (str == null || str.trim().isEmpty()) {
 			req.getSession().removeAttribute("queryList");
@@ -79,16 +85,9 @@ public class DBlistServlet extends BaseServlet {
 			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
 		}
 		
+		//去前後空格轉換小寫
 		String sql = str.trim().toLowerCase();
 		
-		//判斷最後非分號
-		if (!";".equals(String.valueOf(sql.charAt(sql.length() - 1)))) {
-			req.getSession().setAttribute("error", "無效SQL語句缺失 ; ");
-			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
-		}
-		
-		//去末尾分號
-		sql = sql.substring(0, sql.length() - 1);
 		String[] split = sql.split(" ");
 
 		/*
@@ -102,13 +101,14 @@ public class DBlistServlet extends BaseServlet {
 		case "create":
 		case "alter":
 		case "drop":
+		case "truncate":
 		case "insert":
 		case "update":
 		case "delete":
 			query(req, resp, sql, false); // false非select語句,返回的是影響幾條數據
 			break;
 		case "select":
-			query(req, resp, sql, true);
+			query(req, resp, sql, true); // true是select語句,返回的是查詢結果
 			break;
 
 		}
@@ -131,6 +131,7 @@ public class DBlistServlet extends BaseServlet {
 		try {
 			String dbName = dblistService.useDatabase(database);
 			req.getSession().setAttribute("databaseName", dbName);
+			req.getSession().setAttribute("error", "Database changed : 進入" + dbName);
 			req.getRequestDispatcher("/view/console.jsp").forward(req, resp);
 		} catch (Exception e) {
 			req.getSession().setAttribute("error", e.getMessage());
