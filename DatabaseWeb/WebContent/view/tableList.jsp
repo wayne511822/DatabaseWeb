@@ -13,7 +13,7 @@
 			background-color: #E0E0E0;
 		}
 		body {
-			font-family: Arial,sans-serif
+			font-family: Arial,sans-serif;
 		}
 		div {
 			width: 90%;

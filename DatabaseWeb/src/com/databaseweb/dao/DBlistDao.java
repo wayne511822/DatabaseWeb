@@ -63,12 +63,13 @@ public class DBlistDao {
 		ResultSet rs = null;
 		List<DBName> list = new ArrayList<>();
 		try {
+			//連線資料庫
 			con = JDBCUtils.getConnection( );
+			//操作資料庫
 			con.setCatalog(database);
 			stmt = con.createStatement();
-			//stmt.execute("USE " + database);
 			rs = stmt.executeQuery("SHOW TABLES");
-			
+			//查詢結果保存在List集合中
 			while(rs.next()) {
 				String name = rs.getString(1);
 				DBName dbName = new DBName();
@@ -79,6 +80,7 @@ public class DBlistDao {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
+			//資源關閉
 			try {
 				closeAll(con, stmt, rs);
 			} catch (SQLException e) {
@@ -102,7 +104,7 @@ public class DBlistDao {
 		List<Describe> list = new ArrayList<>();
 		try {
 			con = JDBCUtils.getConnection( );
-			con.setCatalog(database);
+			con.setCatalog(database); //設定使用哪個資料庫
 			stmt = con.createStatement();
 			//stmt.execute("USE " + database);
 			rs = stmt.executeQuery("DESCRIBE " + table);

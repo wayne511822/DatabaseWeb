@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.databaseweb.domain.DBName;
 import com.databaseweb.service.DBlistService;
 
-/**
+/**	
  * 接收請求回應結果
  * @author wayne
  *
@@ -36,19 +36,22 @@ public class DBlistServlet extends BaseServlet {
 	/**
 	 * 轉發給頁面資料表list
 	 */
-	public void getTableNameList(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-
+	public void getTableNameList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//取得reauest域中name參數
 		String databaseName = req.getParameter("name");
-
+		
+		//調用業務層service的getTableNameList(String database)方法
 		List<DBName> tableList = dblistService.getTableNameList(databaseName);
+		
+		//若返回的List為空則拋出異常
 		if (tableList == null) {
 			throw new RuntimeException("發生錯誤!無法取得資料表!");
 		}
+		
+		//不為空則將數據保存並轉發
 		req.setAttribute("tableList", tableList);
 		req.getSession().setAttribute("databaseName", databaseName);
 		req.getRequestDispatcher("/view/tableList.jsp").forward(req, resp);
-
 	}
 
 	/**
@@ -97,7 +100,6 @@ public class DBlistServlet extends BaseServlet {
 		case "use":
 			useDatabase(req, resp, split[1]);
 			break;
-
 		case "create":
 		case "alter":
 		case "drop":

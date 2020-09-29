@@ -14,10 +14,10 @@ import java.util.Properties;
  */
 public class JDBCUtils {
 	private static Properties prop  = null;
-	
-	static {
-		
+	//讀取配置文件
+	static {	
 		InputStream is = JDBCUtils.class.getClassLoader().getResourceAsStream("dbconfig.properties");
+		
 		prop = new Properties(); 
 		try {
 			prop.load(is);
@@ -33,7 +33,6 @@ public class JDBCUtils {
 	}
 	public static Connection getConnection() throws SQLException {
 		
-		return DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("username"), prop.getProperty("password"));
+		return DriverManager.getConnection(prop.getProperty("url"),	prop.getProperty("username"), prop.getProperty("password"));
 	}
-
 }

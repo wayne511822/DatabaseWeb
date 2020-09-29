@@ -25,6 +25,7 @@ public class DBlistService {
 	 */
 	public List<DBName> getTableNameList(String database) {
 		if (database != null) {
+			//調用DAO對象的getTableNameList(database)方法,實際對數據庫操作
 			return dao.getTableNameList(database);
 		}
 		return null;

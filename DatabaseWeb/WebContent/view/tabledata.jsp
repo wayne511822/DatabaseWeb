@@ -10,7 +10,7 @@
 			margin: 0px;
 		}
 		body {
-			font-family: Arial,sans-serif
+			font-family: Arial,sans-serif;
 		}
 		div {
 			width: 95%;

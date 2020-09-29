@@ -2,7 +2,6 @@ package com.databaseweb.web.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.sql.SQLSyntaxErrorException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
